@@ -1,3 +1,5 @@
+"""This module is responsible for signing SOAP envelopes."""
+
 import uuid
 from datetime import datetime, timedelta
 
