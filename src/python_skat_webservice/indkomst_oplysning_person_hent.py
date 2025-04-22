@@ -81,7 +81,7 @@ def create_envelope(cpr: str, month_from: str, month_to: str, transaction_id: st
 
 
 
-def search_income(cpr: str, month_from: str, month_to: str, transaction_id: str, caller_info: CallerInfo, soap_signer: SOAPSigner) -> str:
+def search_income(cpr: str, month_from: str, month_to: str, transaction_id: str, caller_info: CallerInfo, soap_signer: SOAPSigner, timeout: int = 30) -> str:
     """Search the income information on the given cpr-number for the given month interval.
 
     Args:
@@ -91,6 +91,7 @@ def search_income(cpr: str, month_from: str, month_to: str, transaction_id: str,
         transaction_id: An id to identify the transaction. Can be anything.
         caller_info: A CallerInfo object that describes the caller.
         soap_signer: The SOAPSigner object used to sign the call.
+        timeout: The time in seconds to wait for the http call.
 
     Raises:
         HTTPError: If the server didn't return a 200 status code.
@@ -108,7 +109,7 @@ def search_income(cpr: str, month_from: str, month_to: str, transaction_id: str,
         'SOAPAction': 'IndkomstOplysningPersonHent'
     }
 
-    response = requests.post(url=url, data=msg, headers=headers)
+    response = requests.post(url=url, data=msg, headers=headers, timeout=timeout)
     response.raise_for_status()
 
     return response.text
