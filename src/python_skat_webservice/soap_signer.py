@@ -15,6 +15,7 @@ NSMAP = {
 }
 
 
+# pylint: disable=too-few-public-methods
 class SOAPSigner:
     """The SOAPSigner class is responsible for signing SOAP envelopes
     with a certificate.

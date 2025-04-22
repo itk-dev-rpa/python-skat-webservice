@@ -22,7 +22,7 @@ NSMAP = {
 }
 
 
-def create_envelope(cpr: str, month_from: str, month_to: str, transaction_id: str, caller_info: CallerInfo, soap_signer: SOAPSigner) -> str:  # noqa: PLR0913
+def create_envelope(*, cpr: str, month_from: str, month_to: str, transaction_id: str, caller_info: CallerInfo, soap_signer: SOAPSigner) -> str:
     """Create a SOAP envelope for calling the service.
 
     Args:
@@ -80,9 +80,7 @@ def create_envelope(cpr: str, month_from: str, month_to: str, transaction_id: st
     return etree.tostring(envelope, pretty_print=False, xml_declaration=True, encoding="utf-8").decode()
 
 
-
-
-def search_income(cpr: str, month_from: str, month_to: str, transaction_id: str, caller_info: CallerInfo, soap_signer: SOAPSigner, timeout: int = 30) -> str:
+def search_income(*, cpr: str, month_from: str, month_to: str, transaction_id: str, caller_info: CallerInfo, soap_signer: SOAPSigner, timeout: int = 30) -> str:
     """Search the income information on the given cpr-number for the given month interval.
 
     Args:
@@ -100,7 +98,14 @@ def search_income(cpr: str, month_from: str, month_to: str, transaction_id: str,
     Returns:
         The raw xml response from the server.
     """
-    msg = create_envelope(cpr, month_from, month_to, transaction_id, caller_info, soap_signer)
+    msg = create_envelope(
+        cpr=cpr,
+        month_from=month_from,
+        month_to=month_to,
+        transaction_id=transaction_id,
+        caller_info=caller_info,
+        soap_signer=soap_signer
+    )
 
     # Call service
     url = "https://services.extranet.skat.dk/vericert/services/IndkomstOplysningPersonHentV2ServicePort"
