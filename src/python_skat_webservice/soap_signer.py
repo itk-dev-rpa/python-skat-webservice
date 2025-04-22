@@ -21,6 +21,7 @@ class SOAPSigner:
     It adds a timestamp, binary security token and signatures for both
     and a signature for the body.
     """
+
     _cert: bytes
     _key: bytes
 
@@ -47,7 +48,6 @@ class SOAPSigner:
         else:
             raise TypeError("Key file must be a path string or bytes object.")
 
-
     def sign_soap_envelope(self, envelope: etree.ElementBase):
         """Sign the given SOAP envelope with the SOAPSigner's
         certificate.
@@ -64,8 +64,8 @@ class SOAPSigner:
         """
         created = datetime.now()
         expires = created + timedelta(minutes=5)
-        created_str = created.strftime('%Y-%m-%dT%H:%M:%SZ')
-        expires_str = expires.strftime('%Y-%m-%dT%H:%M:%SZ')
+        created_str = created.strftime("%Y-%m-%dT%H:%M:%SZ")
+        expires_str = expires.strftime("%Y-%m-%dT%H:%M:%SZ")
 
         timestamp_id = "Timestamp-" + str(uuid.uuid4())
         token_id = "SecurityToken-" + str(uuid.uuid4())
