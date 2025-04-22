@@ -1,4 +1,7 @@
+"""This module contains common classes and functions."""
+
 from dataclasses import dataclass
+
 
 @dataclass
 class CallerInfo:
