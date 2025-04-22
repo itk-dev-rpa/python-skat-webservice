@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "This project makes it easier to use the SKAT webservices."
 readme = "README.md"
 requires-python = ">=3.11"
+
 dependencies = [
     "lxml>=5.3.2",
     "requests>=2.32.3",
@@ -11,8 +12,8 @@ dependencies = [
 ]
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=65.0"]
+build-backend = "setuptools.build_meta"
 
 [tool.uv]
 dev-dependencies = [
