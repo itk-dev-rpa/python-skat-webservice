@@ -1,11 +1,28 @@
+"""This module interacts with the IndkomstOplysningPersonHent webservice."""
+
 from lxml import etree
 import requests
 
 from python_skat_webservice.soap_signer import SOAPSigner
 from python_skat_webservice.common import CallerInfo
 
+NSMAP = {
+    "soap-env": "http://schemas.xmlsoap.org/soap/envelope/",
+    "ns0": "http://rep.oio.dk/skat.dk/eindkomst/",
+    "ns1": "http://rep.oio.dk/skat.dk/basis/kontekst/xml/schemas/2006/09/01/",
+    "ns2": "http://rep.oio.dk/skat.dk/eindkomst/class/abonnenttype/xml/schemas/20071202/",
+    "ns3": "http://rep.oio.dk/skat.dk/eindkomst/class/abonnementtype/xml/schemas/20071202/",
+    "ns4": "http://rep.oio.dk/skat.dk/eindkomst/class/adgangformaaltype/xml/schemas/20071202/",
+    "ns5": "http://rep.oio.dk/skat.dk/motor/class/virksomhed/xml/schemas/20080401/",
+    "ns6": "http://rep.oio.dk/skat.dk/eindkomst/class/indkomstoplysningadgangmedarbejderidentifikator/xml/schemas/20071202/",
+    "ns7": "http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/",
+    "ns8": "http://rep.oio.dk/skat.dk/eindkomst/class/soegeaarmaanedfrakode/xml/schemas/20071202/",
+    "ns9": "http://rep.oio.dk/skat.dk/eindkomst/class/soegeaarmaanedtilkode/xml/schemas/20071202/",
+    "ns10": "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd",
+}
 
-def create_envelope(cpr: str, month_from: str, month_to: str, transaction_id: str, caller_info: CallerInfo, soap_signer: SOAPSigner) -> str:
+
+def create_envelope(cpr: str, month_from: str, month_to: str, transaction_id: str, caller_info: CallerInfo, soap_signer: SOAPSigner) -> str:  # noqa: PLR0913
     """Create a SOAP envelope for calling the service.
 
     Args:
@@ -19,22 +36,6 @@ def create_envelope(cpr: str, month_from: str, month_to: str, transaction_id: st
     Returns:
         The signed SOAP envelope as a string.
     """
-    # Define namespaces
-    NSMAP = {
-        'soap-env': 'http://schemas.xmlsoap.org/soap/envelope/',
-        'ns0': 'http://rep.oio.dk/skat.dk/eindkomst/',
-        'ns1': 'http://rep.oio.dk/skat.dk/basis/kontekst/xml/schemas/2006/09/01/',
-        'ns2': 'http://rep.oio.dk/skat.dk/eindkomst/class/abonnenttype/xml/schemas/20071202/',
-        'ns3': 'http://rep.oio.dk/skat.dk/eindkomst/class/abonnementtype/xml/schemas/20071202/',
-        'ns4': 'http://rep.oio.dk/skat.dk/eindkomst/class/adgangformaaltype/xml/schemas/20071202/',
-        'ns5': 'http://rep.oio.dk/skat.dk/motor/class/virksomhed/xml/schemas/20080401/',
-        'ns6': 'http://rep.oio.dk/skat.dk/eindkomst/class/indkomstoplysningadgangmedarbejderidentifikator/xml/schemas/20071202/',
-        'ns7': 'http://rep.oio.dk/cpr.dk/xml/schemas/core/2005/03/18/',
-        'ns8': 'http://rep.oio.dk/skat.dk/eindkomst/class/soegeaarmaanedfrakode/xml/schemas/20071202/',
-        'ns9': 'http://rep.oio.dk/skat.dk/eindkomst/class/soegeaarmaanedtilkode/xml/schemas/20071202/',
-        'ns10': 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd',
-    }
-
     # Create envelope
     envelope = etree.Element(f"{{{NSMAP['soap-env']}}}Envelope", nsmap=NSMAP)
 
