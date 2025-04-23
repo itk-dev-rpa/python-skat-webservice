@@ -44,7 +44,6 @@ range of months.
 ```python
 from python_skat_webservice.soap_signer import SOAPSigner
 from python_skat_webservice.common import CallerInfo
-from python_skat_webservice.soap_signer import SOAPSigner
 from python_skat_webservice.indkomst_oplysning_person_hent import search_income
 
 if __name__ == '__main__':
