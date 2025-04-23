@@ -22,7 +22,9 @@ jobs:
         sudo apt-get install pkg-config libxml2-dev libxmlsec1-dev libxmlsec1-openssl
         python -m pip install --upgrade pip
         pip install uv
-        uv sync
+        uv pip install --system .
+        uv pip install --system flake8 pylint
+        
 
     - name: Analysing the code with pylint
       run: |
