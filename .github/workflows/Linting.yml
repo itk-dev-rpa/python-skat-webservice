@@ -18,9 +18,11 @@ jobs:
 
     - name: Install dependencies
       run: |
+        apt-get update
+        apt-get install pkg-config libxml2-dev libxmlsec1-dev libxmlsec1-openssl
         python -m pip install --upgrade pip
         pip install uv
-        uv pip install --system pylint flake8
+        uv sync
 
     - name: Analysing the code with pylint
       run: |
